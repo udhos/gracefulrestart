@@ -31,7 +31,7 @@ func main() {
 	}
 
 	go func() {
-		const interval = 5 * time.Second
+		const interval = 3 * time.Second
 		for i := 1; ; i++ {
 			log.Printf("reloader %d: reloading", i)
 			load(app, i, "config.txt")
@@ -139,7 +139,7 @@ func shutdown(app *application) {
 }
 
 func httpShutdown(server *http.Server) {
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 	if err := server.Shutdown(ctx); err != nil {
 		log.Printf("http server shutdown error: %v", err)
