@@ -73,13 +73,13 @@ func load(app *application, i int, path string) {
 	}
 	ln, errListen := lc.Listen(context.TODO(), "tcp", addr)
 	if errListen != nil {
-		log.Printf("%s: serving on port %s: %v", me, addr, errListen)
+		log.Printf("%s: error listening on %s: %v", me, addr, errListen)
 		return
 	}
-	log.Printf("%s: listening on port %s", me, addr)
+	log.Printf("%s: listening on %s", me, addr)
 	go func() {
 		errServe := server.Serve(ln)
-		log.Printf("%s: error serving on port %s: %v", me, addr, errServe)
+		log.Printf("%s: error serving on %s: %v", me, addr, errServe)
 	}()
 
 	//
