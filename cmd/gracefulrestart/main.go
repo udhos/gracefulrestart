@@ -27,6 +27,8 @@ type application struct {
 func main() {
 
 	app := &application{
+		// bogus initial server to prevent crashing on shutdown
+		// will be replaced at first reload
 		server: &http.Server{},
 	}
 
