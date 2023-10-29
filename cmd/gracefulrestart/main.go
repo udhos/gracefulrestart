@@ -63,7 +63,7 @@ func load(app *application, i int, path string) {
 	//
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", http.NotFound)
-	mux.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) { handlerHello(w, r, cfg) })
+	mux.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) { handlerHello(w, r, cfg, i) })
 	server := http.Server{
 		Addr:    addr,
 		Handler: mux,
@@ -111,8 +111,9 @@ func setSocketOpt(network, address string, c syscall.RawConn) error {
 	return nil
 }
 
-func handlerHello(w http.ResponseWriter, r *http.Request, cfg config) {
-	http.Error(w, cfg.message, 200)
+func handlerHello(w http.ResponseWriter, r *http.Request, cfg config, i int) {
+	msg := fmt.Sprintf("server %d: %s", i, cfg.message)
+	http.Error(w, msg, 200)
 }
 
 func loadConfig(path string) (config, error) {
